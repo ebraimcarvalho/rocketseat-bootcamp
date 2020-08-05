@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, FlatList, Text, SafeAreaView, View } from 'react-native';
+import { StyleSheet, FlatList, Text, SafeAreaView, View, TouchableOpacity } from 'react-native';
 import api from './src/services/api'
 
 import Init from './src';
@@ -15,6 +15,17 @@ export default function App() {
     })
   }, []);
 
+  async function handleAddProject() {
+    const response = await api.post('projects', {
+      title: `Novo Projeto ${Date.now()}`,
+      owner: 'Ebraim Carvalho'
+    });
+
+    const project = response.data;
+
+    setProjects([...projects, project])
+  }
+
   return (
     <>
       <StatusBar style="light" />
@@ -27,6 +38,10 @@ export default function App() {
             <Text style={styles.title}>{item.title}</Text>
           )}
         />
+
+        <TouchableOpacity activeOpacity={0.6} style={styles.button} onPress={handleAddProject}>
+          <Text style={styles.buttonText} value={'projeto novo'}>Adicionar Projeto</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     {/* <View style={styles.container}>
       <Text style={styles.tittle}>Hello World!</Text>
@@ -54,4 +69,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold'
   },
+  button: {
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    margin: 20
+  },
+  buttonText: {
+    fontWeight: 'bold',
+    fontSize: 16
+  }
 });
