@@ -3,11 +3,12 @@ import express from 'express'
 const app = express()
 
 app.get('/', (request, response) => {
-  return response.json({ 
+  return response.json({
     message: 'Hello World',
-    developer: 'Ebraim Carvalho',
+    developer: 'Ebraim Carvalho Filho',
     company: 'Encontact',
-    hired: 'true'
+    hired: 'true',
+    ok: 'true'
   })
 })
 
