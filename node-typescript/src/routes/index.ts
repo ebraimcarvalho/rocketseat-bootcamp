@@ -10,6 +10,16 @@ routes.get('/', (request, response) => {
     hired: 'true',
     ok: 'true'
   })
+});
+
+routes.post('/users', (request, response) => {
+  const { name } = request.query;
+  console.log(name)
+  const user = {
+    name,
+    developer: "true"
+  }
+  response.json(user)
 })
 
 export default routes;
